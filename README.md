@@ -13,7 +13,7 @@ Class allows selecting a record with related records (*.get(id)*) or a list with
 index.js applications
 
 ```js
-import { builder_WatermelonDB_set_database } from "../";
+import { builder_WatermelonDB_set_database } from "query_builder_wdb";
 ...
 const database = new Database({
     adapter,
@@ -28,7 +28,7 @@ builder_WatermelonDB_set_database(database);
 Loading table *project* with *tasks* and *comments*
 
 ```js
-import { Builder } from "../";
+import { Builder } from "query_builder_wdb";
 ...
 const project = await new Builder(MockProject)
     .with([
