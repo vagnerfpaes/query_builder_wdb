@@ -3,6 +3,7 @@ export declare function builder_WatermelonDB_set_database(db: Database): void;
 declare type BuilderModel = typeof Model;
 declare type WithBuild = {
     model: BuilderModel;
+    as?: string;
     with?: WithBuild[];
 };
 declare type RawType = Record<string, any>;
