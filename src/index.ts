@@ -12,7 +12,11 @@ type WithBuild = {
   as?: string;
   with?: WithBuild[];
 };
-type LevelModelType = { parent: BuilderModel; model: BuilderModel; as: string };
+type LevelModelType = {
+  parent: BuilderModel;
+  model: BuilderModel;
+  as: string;
+};
 type RawType = Record<string, any>;
 
 export class Builder {
@@ -72,8 +76,13 @@ export class Builder {
     concat = ""
   ) {
     for (let { model, with: w = [], as: as } of associations) {
-      const _concat = this._concat(concat, model.table);
-      this._withLevels.set(_concat, { parent, model, as: as || model.table });
+      const modelAs = as || model.table;
+      const _concat = this._concat(concat, modelAs);
+      this._withLevels.set(_concat, {
+        parent,
+        model,
+        as: modelAs,
+      });
       if (w.length) {
         this._makeWithLevels(w, model, _concat);
       }
@@ -81,6 +90,7 @@ export class Builder {
   }
 
   private async _process(models: Model[]) {
+    debugger;
     let list = models.length ? models.map((m) => m._raw as RawType) : [];
 
     this._withLevels.clear();
@@ -197,12 +207,12 @@ export class Builder {
 
     keys.forEach((key) => {
       const listKey = key.split(".");
-      const table = listKey[listKey.length - 1];
+      // const table = listKey[listKey.length - 1];
       const models = columns[key];
       const associations = models.parent.associations;
       const associationKey =
         Object.keys(associations).find(
-          (association) => association === table
+          (association) => association === models.model.table
         ) || "";
       const association = associations[associationKey];
       if (association) {

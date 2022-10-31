@@ -146,20 +146,22 @@ it("Teste selecionar primeiro projeto e tasks com comentários", async () => {
 
 it("Teste selecionar primeiro projeto e tasks com comentários com propriedade alias", async () => {
   builder_WatermelonDB_set_database(database.database);
+  debugger;
   const projects = await new Builder(MockProject).with([]).all();
   const project = await new Builder(MockProject)
     .with([
       {
         model: MockTask,
-        as: 'tasks',
+        as: "tasks",
         with: [
           {
             model: MockComment,
-            as: 'comments'
+            as: "comments",
           },
         ],
       },
     ])
     .get(projects[0].id);
-  expect(project['tasks'][0]['comments']).toBeDefined();
+  console.log(project);
+  expect(project["tasks"][0]["comments"]).toBeDefined();
 });
