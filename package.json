@@ -1,6 +1,6 @@
 {
   "name": "query_builder_wdb",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Load tables related to WatermelonDB",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
