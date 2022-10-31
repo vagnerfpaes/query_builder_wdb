@@ -143,3 +143,23 @@ it("Teste selecionar primeiro projeto e tasks com comentários", async () => {
     .get(projects[0].id);
   expect(project[MockTask.table][0][MockComment.table]).toBeDefined();
 });
+
+it("Teste selecionar primeiro projeto e tasks com comentários com propriedade alias", async () => {
+  builder_WatermelonDB_set_database(database.database);
+  const projects = await new Builder(MockProject).with([]).all();
+  const project = await new Builder(MockProject)
+    .with([
+      {
+        model: MockTask,
+        as: 'tasks',
+        with: [
+          {
+            model: MockComment,
+            as: 'comments'
+          },
+        ],
+      },
+    ])
+    .get(projects[0].id);
+  expect(project['tasks'][0]['comments']).toBeDefined();
+});
