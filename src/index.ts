@@ -9,6 +9,7 @@ export function builder_WatermelonDB_set_database(db: Database) {
 type BuilderModel = typeof Model;
 type WithBuild = {
   model: BuilderModel;
+  as?: string;
   with?: WithBuild[];
 };
 type LevelModelType = { parent: BuilderModel; model: BuilderModel };
@@ -46,7 +47,9 @@ export class Builder {
     return null;
   }
 
-  public async all<K = RawType[]>(conditions?: Q.Clause[]): Promise<K[] | null> {
+  public async all<K = RawType[]>(
+    conditions?: Q.Clause[]
+  ): Promise<K[] | null> {
     let _data = [];
     const data = await __db
       .get(this.model.table)
