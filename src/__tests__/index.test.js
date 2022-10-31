@@ -146,7 +146,6 @@ it("Teste selecionar primeiro projeto e tasks com comentários", async () => {
 
 it("Teste selecionar primeiro projeto e tasks com comentários com propriedade alias", async () => {
   builder_WatermelonDB_set_database(database.database);
-  debugger;
   const projects = await new Builder(MockProject).with([]).all();
   const project = await new Builder(MockProject)
     .with([

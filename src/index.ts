@@ -90,7 +90,6 @@ export class Builder {
   }
 
   private async _process(models: Model[]) {
-    debugger;
     let list = models.length ? models.map((m) => m._raw as RawType) : [];
 
     this._withLevels.clear();
