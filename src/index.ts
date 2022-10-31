@@ -12,7 +12,7 @@ type WithBuild = {
   as?: string;
   with?: WithBuild[];
 };
-type LevelModelType = { parent: BuilderModel; model: BuilderModel };
+type LevelModelType = { parent: BuilderModel; model: BuilderModel; as: string };
 type RawType = Record<string, any>;
 
 export class Builder {
@@ -71,9 +71,9 @@ export class Builder {
     parent: BuilderModel,
     concat = ""
   ) {
-    for (let { model, with: w = [] } of associations) {
+    for (let { model, with: w = [], as: as } of associations) {
       const _concat = this._concat(concat, model.table);
-      this._withLevels.set(_concat, { parent, model });
+      this._withLevels.set(_concat, { parent, model, as: as || model.table });
       if (w.length) {
         this._makeWithLevels(w, model, _concat);
       }
@@ -254,7 +254,7 @@ export class Builder {
           )?.map((m) => m._raw) || [];
 
         if (modelData.length) {
-          const table = models.model.table;
+          const table = models.as;
           list.forEach((raw) => {
             this._setValueFromPath(key, table, id, type, raw, modelData);
           });
